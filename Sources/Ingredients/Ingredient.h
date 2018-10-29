@@ -1,0 +1,8 @@
+//
+// Created by Leon Wong on 29/Oct.
+//
+
+#ifndef DESPAT_MYKITCHEN_INGREDIENT_H
+#define DESPAT_MYKITCHEN_INGREDIENT_H
+
+#endif //DESPAT_MYKITCHEN_INGREDIENT_H
