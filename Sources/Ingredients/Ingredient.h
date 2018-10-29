@@ -17,9 +17,12 @@ public:
      *
      * @return (string) A string about this object and its address.
      */
-    inline virtual std::string who_am_i() const;
+    inline virtual std::string who_am_i() const override;
 
-
+protected:
+    std::string color;
+    std::string shape;
+    // TODO: set some properties for ingredients
 };
 
 #endif //DESPAT_MYKITCHEN_INGREDIENT_H
