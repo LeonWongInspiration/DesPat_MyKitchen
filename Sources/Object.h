@@ -21,7 +21,7 @@ public:
      * @brief Get the basic information from this Object.
      * @return (string): A string about this Object and its address.
      */
-    inline std::string who_am_i() const {
+    inline virtual std::string who_am_i() const {
         std::string ret = "Object@";
         std::stringstream ss;
         ss << this;
