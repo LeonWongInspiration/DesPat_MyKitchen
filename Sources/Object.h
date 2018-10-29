@@ -5,6 +5,10 @@
 #ifndef DESPAT_MYKITCHEN_OBJECT_H
 #define DESPAT_MYKITCHEN_OBJECT_H
 
+#include <iostream>
+#include <string>
+#include <sstream>
+
 /**
  * @brief A basic Object class containing some requirements of objects.
  *
@@ -12,12 +16,17 @@
  * @build 201810291440
  */
 class Object {
+public:
     /**
      * @brief Get the basic information from this Object.
      * @return (string): A string about this Object and its address.
      */
-    inline public string who_am_i() {
-        return "Object@" + this;
+    inline std::string who_am_i() const {
+        std::string ret = "Object@";
+        std::stringstream ss;
+        ss << this;
+        ret += ss.str();
+        return ret;
     }
 
     /**
@@ -26,7 +35,7 @@ class Object {
      * @return (bool): True if the two objects are the same one, false otherwise.
      * @warning This function tells an object is equal to another one only with its address!
      */
-    inline public bool operator== (const Object *obj) {
+    inline bool operator== (const Object *obj) const {
         return this == obj;
     }
 
@@ -36,7 +45,7 @@ class Object {
      * @return (bool): True if the two objects are the same one, false otherwise.
      * @warning This function tells an object is equal to another one if and only if their addresses are identical!
      */
-    inline public bool operator== (const Object &obj) {
+    inline bool operator== (const Object &obj) const {
         return this == &obj;
     }
 };
