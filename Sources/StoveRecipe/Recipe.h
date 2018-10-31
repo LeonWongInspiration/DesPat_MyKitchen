@@ -62,7 +62,7 @@ public:
     virtual string who_am_i() const override {
         stringstream add;
         add << this;
-        string ret = "Stove@" + add.str();
+        string ret = "Recipe@" + add.str();
         return ret;
     }
     
