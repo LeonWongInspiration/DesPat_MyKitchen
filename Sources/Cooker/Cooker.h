@@ -4,13 +4,6 @@
 #include <stdio.h>
 #include <list>
 using namespace std;
-
-//食材的类
-class abc;
-
-typedef abc Food;
-typedef list<Food*> FoodList;
-
 class Cooker
 {
     class State *current;
@@ -19,7 +12,7 @@ public:
     void setCurrent(State *s);
     void on();
     void off();
-    bool search(FoodList rp,FoodList rg);
+    bool search(list<string> rp,list<string> rg);
     
     bool cook();
     bool fry();

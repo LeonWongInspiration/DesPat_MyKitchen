@@ -35,13 +35,12 @@ void Cooker::off()
 /**
  *@brief Find food in Refrigerator.
  *
- *@param (FoodList)rp:rp tells cooker what you needs.
- *@param (FoodList)rg:cooker tells rg what is needed.
+ *@param (string)rp:rp tells cooker what you needs.
+ *@param (string)rg:cooker tells rg what is needed.
  &@return (bool):True if the food can be found in refrigerator,false otherwise.
  */
-bool Cooker::search(FoodList rp, FoodList rg)
+bool Cooker::search(list<string> rp, list<string> rg)
 {
-    FoodList::iterator j;
     /**
      * can be find.
      */
@@ -49,12 +48,12 @@ bool Cooker::search(FoodList rp, FoodList rg)
     /**
      * Traversing rp.
      */
-    for (FoodList::iterator i = rp.begin(); i != rp.end(); i++)
+    for (list<string>::iterator i = rp.begin(); i != rp.end(); i++)
     {
         /**
          * Traversing rg.
          */
-        for (FoodList::iterator j = rg.begin(); j!=rg.end(); j++)
+        for (list<string>::iterator j = rg.begin(); j!=rg.end(); j++)
         {
             if (*i==*j)
             {

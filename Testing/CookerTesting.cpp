@@ -3,12 +3,8 @@
 #include "CookerFactory.h"
 using namespace std;
 
-class abc;//食材的类
-typedef abc Food;
-typedef list<Food*> FoodList;
-
-FoodList rp;
-FoodList rg;
+list<string> rp;
+list<string> rg;
 
 int main(int argc, const char * argv[]) {    
     CookerFactory *pCookerFactory1 = new PotFactory();
