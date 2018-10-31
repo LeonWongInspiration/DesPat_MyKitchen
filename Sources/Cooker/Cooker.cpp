@@ -7,7 +7,6 @@ using namespace std;
 Cooker::Cooker()
 {
     current = new OFF();
-    cout << "begin" << endl;
 }
 
 void Cooker::setCurrent(State *s)
@@ -70,8 +69,83 @@ bool Cooker::search(FoodList rp, FoodList rg)
     return true;
 }
 
+/**
+ *@brief Cook the food.
+ *
+ */
+bool Cooker::cook()
+{
+    if(name=="Pot")
+    {
+        cout<<"煮"<<endl;
+        return true;
+    }
+    else
+        return false;
+}
+
+/**
+ *@brief Fry the food.
+ *
+ */
+bool Cooker::fry()
+{
+    if(name=="Pot")
+    {
+        cout<<"炸"<<endl;
+        return true;
+    }
+    else
+        return false;
+}
+
+/**
+ *@brief Steam the food.
+ *
+ */
+bool Cooker::steam()
+{
+    if(name=="Pot")
+    {
+        cout<<"蒸"<<endl;
+        return true;
+    }
+    else
+        return false;
+}
+
+/**
+ *@brief Roast the food.
+ *
+ */
+bool Cooker::roast()
+{
+    if(name=="Oven")
+    {
+        cout<<"烤"<<endl;
+        return true;
+    }
+    else
+        return false;
+}
+
+/**
+ *@brief Cut the food.
+ *
+ */
+bool Cooker::cut()
+{
+    if(name=="KitchenKnife")
+    {
+        cout<<"切"<<endl;
+        return true;
+    }
+    else
+        return false;
+}
 Pot::Pot()
 {
+    name="Pot";
     cout << "找到可用的锅" << endl;
 }
 
@@ -80,35 +154,9 @@ Pot::~Pot()
     
 }
 
-/**
- *@brief Cooke the food.
- *
- */
-void Pot::cook()
-{
-    cout << "煮" << endl;
-}
-
-/**
- *@brief Fry the food.
- *
- */
-void Pot::fry()
-{
-    cout << "炸" << endl;
-}
-
-/**
- *@brief Steam the food.
- *
- */
-void Pot::steam()
-{
-    cout << "蒸" << endl;
-}
-
 KitchenKnife::KitchenKnife()
 {
+    name="KitchenKnife";
     cout << "找到可用的刀" << endl;
 }
 
@@ -117,17 +165,9 @@ KitchenKnife::~KitchenKnife()
     
 }
 
-/**
- *@brief Cut the food.
- *
- */
-void KitchenKnife::cut()
-{
-    cout << "切" << endl;
-}
-
 Oven::Oven()
 {
+    name="Oven";
     cout << "找到可用的烤箱" << endl;
 }
 
@@ -136,13 +176,5 @@ Oven::~Oven()
     
 }
 
-/**
- *@brief Roast the food.
- *
- */
-void Oven::roast()
-{
-    cout << "切" << endl;
-}
 
 

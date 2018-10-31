@@ -20,6 +20,14 @@ public:
     void on();
     void off();
     bool search(FoodList rp,FoodList rg);
+    
+    bool cook();
+    bool fry();
+    bool steam();
+    bool roast();
+    bool cut();
+    
+    string name;
 };
 
 class Pot :public Cooker
@@ -27,9 +35,6 @@ class Pot :public Cooker
 public:
     Pot();
     ~Pot();
-    void cook();
-    void fry();
-    void steam();
 };
 
 class KitchenKnife :public Cooker
@@ -37,7 +42,6 @@ class KitchenKnife :public Cooker
 public:
     KitchenKnife();
     ~KitchenKnife();
-    void cut();
 };
 
 class Oven :public Cooker
@@ -45,7 +49,6 @@ class Oven :public Cooker
 public:
     Oven();
     ~Oven();
-    void roast();
 };
 
-#endif /* Cooker_hpp */
+#endif
