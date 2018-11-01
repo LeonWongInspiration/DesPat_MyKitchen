@@ -48,6 +48,40 @@ public:
     }
 
     /**
+     * @brief Remove given element.
+     *
+     * @param (T)elem: The elem to remove.
+     */
+    void remove(T elem) {
+        for (int i = 0; i < this->_array->size(); ++i) {
+            if ((*(this->_array))[i].first == elem) {
+                (*(this->_array))[i].second = 0;
+            }
+        }
+    }
+
+    /**
+     * @brief Remove an elem with given amount.
+     *
+     * @param (T)elem Element you want to remove.
+     * @param (amount_type)amount Amount you want to reduce.
+     * @return True if succeeded, false otherwise.
+     */
+    bool remove(T elem, amount_type amount) {
+        if (this->_lazy_update(elem) < amount){
+            return false;
+        }
+        else {
+            for (auto iter = this->_array->end() - 1; iter != this->_array->begin(); --iter) {
+                if (iter->firse == elem) {
+                    iter->second -= amount;
+                    return true;
+                }
+            }
+        }
+    }
+
+    /**
      * @brief Return basic information about the class.
      *
      * @return (string) Name and address of this class.
@@ -398,7 +432,6 @@ private:
         std::vector<content_type> vec;
         for (auto i : *(this->_array)) {
             bool not_exist = true;
-            size_t index;
             for (int t = 0; t < vec.size(); ++t) {
                 if (vec[t].first == i.first) {
                     not_exist = false;
@@ -406,7 +439,7 @@ private:
                     break;
                 }
             }
-            if (not_exist) {
+            if (not_exist && i.second != 0) {
                 vec.push_back(i);
             }
         }
@@ -436,7 +469,9 @@ private:
                 iter->second = 0;
             }
         }
-        this->_array->push_back(content_type(to_merge, count));
+        if (count != 0) {
+            this->_array->push_back(content_type(to_merge, count));
+        }
         return count;
     }
 
