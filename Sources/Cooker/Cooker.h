@@ -4,6 +4,11 @@
 #include <stdio.h>
 #include <list>
 using namespace std;
+
+/**
+ * @brief A basic Cooker class containing some requirements of cookers.
+ *
+ */
 class Cooker
 {
     class State *current;
@@ -23,6 +28,10 @@ public:
     string name;
 };
 
+/**
+ * @brief A basic Pot class containing some requirements of Pot.
+ *
+ */
 class Pot :public Cooker
 {
 public:
@@ -30,6 +39,10 @@ public:
     ~Pot();
 };
 
+/**
+ * @brief A basic KitchenKnife class containing some requirements of KitchenKnife.
+ *
+ */
 class KitchenKnife :public Cooker
 {
 public:
@@ -37,6 +50,10 @@ public:
     ~KitchenKnife();
 };
 
+/**
+ * @brief A basic Oven class containing some requirements of Oven.
+ *
+ */
 class Oven :public Cooker
 {
 public:
