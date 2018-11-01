@@ -19,6 +19,8 @@
 template <typename T>
 class Refrigerator: public Object {
 
+    friend class Iterator;
+
     /**
      * size_t will be considered when referring to indices and sizes of arrays.
      */
@@ -113,7 +115,7 @@ public:
      *
      * @return (const char*) Information about this exception.
      */
-    virtual const char* what() const _NOEXCEPT {
+    virtual const char* what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_USE_NOEXCEPT {
         char index_str[16];
         sprintf(index_str, "%d", this->index);
         std::string ret;
@@ -144,6 +146,21 @@ public:
      * @throws (out_of_boundary_exception) If the index is not legal, this function will throw an exception.
      */
     const content_type& at(size_t index) const throw(out_of_boundary_exception);
+
+    class Iterator;
+    /**
+     * @brief Get an iterator from index 0.
+     *
+     * @return (Iterator): A new iter.
+     */
+    Iterator begin();
+
+    /**
+     * @brief Get an iterator from index (end).
+     *
+     * @return (Iterator): A new iter.
+     */
+    Iterator end();
 
     /**
      * Default constructor.
@@ -213,20 +230,68 @@ public:
      */
     const content_type& operator*(const Iterator &iter) const ;
 
+    /**
+     * @brief Tell if an iterator is identical to another one.
+     *
+     * @param LHS Left-hand-side.
+     * @param RHS Right-hand-side.
+     * @return (bool) Whether one iter is the same with another one.
+     */
     friend bool operator==(const Iterator &LHS, const Iterator &RHS);
 
+    /**
+     * @brief Tell if an iterator is not identical to another one.
+     *
+     * @param LHS Left-hand-side.
+     * @param RHS Right-hand-side.
+     * @return (bool) Whether one iter is not the same with another one.
+     */
     friend bool operator!=(const Iterator &LHS, const Iterator &RHS);
 
+    /**
+     * @brief Tell if an iterator is less than another one.
+     *
+     * @param LHS Left-hand-side.
+     * @param RHS Right-hand-side.
+     * @return (bool) Whether LHS is less than RHS.
+     */
     friend bool operator<(const Iterator &LHS, const Iterator &RHS);
 
+    /**
+     * @brief Tell if an iterator is greater than another one.
+     *
+     * @param LHS Left-hand-side.
+     * @param RHS Right-hand-side.
+     * @return (bool) Whether LHS is greater than RHS.
+     */
     friend bool operator>(const Iterator &LHS, const Iterator &RHS);
 
+    /**
+     * @brief Tell if an iterator is less or equal than another one.
+     *
+     * @param LHS Left-hand-side.
+     * @param RHS Right-hand-side.
+     * @return (bool) Whether LHS is less or equal than RHS.
+     */
     friend bool operator<=(const Iterator &LHS, const Iterator &RHS);
 
+    /**
+     * @brief Tell if an iterator is greater or equal than another one.
+     *
+     * @param LHS Left-hand-side.
+     * @param RHS Right-hand-side.
+     * @return (bool) Whether LHS is greater or equal than RHS.
+     */
     friend bool operator>=(const Iterator &LHS, const Iterator &RHS);
 private:
+    /**
+     * Current index of this iter.
+     */
     size_t _current_index;
 
+    /**
+     * The owner of this iter.
+     */
     Refrigerator* _ref;
 };
 
