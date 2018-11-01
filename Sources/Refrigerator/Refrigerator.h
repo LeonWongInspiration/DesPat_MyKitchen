@@ -396,7 +396,7 @@ private:
         if (!this->_need_lazy_update)
             return;
         std::vector<content_type> vec;
-        for (auto i : this->_array) {
+        for (auto i : *(this->_array)) {
             bool not_exist = true;
             size_t index;
             for (int t = 0; t < vec.size(); ++t) {
@@ -412,7 +412,7 @@ private:
         }
         this->_need_lazy_update = false;
         delete this->_array;
-        this->_array = new std::vector<T>(vec);
+        this->_array = new std::vector<content_type>(vec);
     }
 
     /**

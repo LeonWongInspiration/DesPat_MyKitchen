@@ -6,6 +6,8 @@ int main() {
     ref.push_back(1024, 1);
     ref.push_back(1234, 1);
     ref.push_back(1024, 1);
-    std::cout << ref.search(1024) << std::endl;
+
+    ref.reorganize();
+
 
 }
