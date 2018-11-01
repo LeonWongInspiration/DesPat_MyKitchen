@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
+#include <vector>
 
 /**
  * @brief Refrigerator is a container which can store Ingredients.
@@ -88,7 +89,7 @@ public:
     /**
      * @brief Out_of_boundary_exception will be thrown when there is an illegal visit to the array.
      */
-class out_of_boundary_exception: public std::range_error {
+class out_of_boundary_exception: public std::range_error, Object {
 
     /**
      * size_t will be considered when referring to indices and sizes of arrays.
@@ -115,7 +116,12 @@ public:
     virtual const char* what() const _NOEXCEPT {
         char index_str[16];
         sprintf(index_str, "%d", this->index);
-        return "Refrigerator out of boundary! " + this->refrigerator->who_am_i() + ": @index: " + index_str;
+        std::string ret;
+        ret = "Refrigerator out of boundary! ";
+        ret += this->refrigerator->who_am_i();
+        ret += ": @index: ";
+        ret.append(index_str);
+        return ret.c_str();
     }
 
     /**
@@ -148,12 +154,87 @@ public:
 //TODO: Define a constructor for initializing the refrigerator with given arguments.
 
 //TODO: Define Iterator for the Refrigerator.
+/**
+ * @brief An Iterator class for reading contents from the Refrigerator.
+ *
+ */
+class Iterator: public Object {
+
+    /**
+     * Same definition of size_t in Refrigerator.
+     */
+    using size_t = unsigned int;
+
+public:
+
+    /**
+     * @brief Apply ++iter function.
+     *
+     * @param (Iterator &)iter: Iterator to self-increment.
+     * @return (Iterator &): The iterator after increment.
+     */
+    Iterator& operator++(Iterator &iter);
+
+    /**
+     * @brief Apply iter++ function.
+     *
+     * @return (Iterator &): The iterator before increment.
+     */
+    Iterator& operator++();
+
+    /**
+     * @brief Apply --iter function.
+     *
+     * @param (Iterator &)iter: The Iterator to self-decrement.
+     * @return (Iterator &): The iterator after decrement.
+     */
+    Iterator& operator--(Iterator &iter);
+
+    /**
+     * @brief Apply iter-- function.
+     *
+     * @return (Iterator &): The iterator before decrement.
+     */
+    Iterator& operator--();
+
+    /**
+     * @brief Dereference.
+     *
+     * @param (Iterator &)iter: Iterator to dereference.
+     * @return (content_type &): Content gotten from this iterator.
+     */
+    content_type& operator*(Iterator &iter);
+
+    /**
+     * @brief Const dereference.
+     *
+     * @param (const Iterator&)iter: The iterator to const deref.
+     * @return (const content_type): const content gotten from this iter.
+     */
+    const content_type& operator*(const Iterator &iter) const ;
+
+    friend bool operator==(const Iterator &LHS, const Iterator &RHS);
+
+    friend bool operator!=(const Iterator &LHS, const Iterator &RHS);
+
+    friend bool operator<(const Iterator &LHS, const Iterator &RHS);
+
+    friend bool operator>(const Iterator &LHS, const Iterator &RHS);
+
+    friend bool operator<=(const Iterator &LHS, const Iterator &RHS);
+
+    friend bool operator>=(const Iterator &LHS, const Iterator &RHS);
+private:
+    size_t _current_index;
+
+    Refrigerator* _ref;
+};
 
 private:
     /**
      * Pointer to the memory space allocated for this Refrigerator.
      */
-    content_type* _array;
+    std::vector<content_type>* _array;
 
     /**
      * Total size of the array, or to say, the maximum amount of Ts you can store in the array.
