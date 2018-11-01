@@ -5,11 +5,12 @@
 #ifndef DESPAT_MYKITCHEN_INGREDIENT_H
 #define DESPAT_MYKITCHEN_INGREDIENT_H
 
-#include "../Object.h"
+#include "Object.h"
 #include <stdio.h>
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <map>
 using namespace std;
 
 class Ingredient: public Object {
@@ -32,29 +33,50 @@ public:
      * @brief Return the name of this ingredient.
      *
      */
-	string get_name(const Ingredient* i);
-
+	string get_name();
+    
+    /**
+     * @brief Return the property of this ingredient.
+     *
+     * @param (string) property_name:property_name is the key.
+     * @return (string) property_name:Return property of this ingredient.
+     */
+    string get_custom_property(string property_name);
+    
+    /**
+     * @brief Add a new record to properties.
+     *
+     * @param (string) property_name:property_name is the key.
+     * @param (string) property_value:property_value is the value.
+     * @return (bool):True if add the record sucessfully.
+     */
+    bool add_custom_property(string property_name,string property_value);
+    
+    /**
+     * @brief Change the state.
+     *
+     * @param (string) str:the new state.
+     * @return (bool):True if change the state sucessfully.
+     */
+    bool change_state(string str);
+    
 	/**
 	* @brief Return the state of this ingredient.
 	*
 	*/
-	bool can_be_cut(const Ingredient* i);
-	bool can_be_fried(const Ingredient* i);
-	bool can_be_cooked(const Ingredient* i);
-	bool can_be_steamed(const Ingredient* i);
-
-	/**
-	* @brief Return a new object that is a definite food.
-	*
-	*/
-	Ingredient* get_ingredient(Ingredient& i, double w);
-
+	bool can_be_cut();
+	bool can_be_fried();
+	bool can_be_cooked();
+	bool can_be_steamed();
+    
+    /**
+     * The properties of the Ingredient.
+     */
+    map<string,string>properties;
 
 protected:
-    string name;
-    double weight;
     // TODO: set some properties for ingredients
-	char state = '11111111';
+	string state = "1111";
 };
 
 class Vegetable :public Ingredient {
@@ -81,7 +103,7 @@ class Flavour :public Ingredient {
 	~Flavour();
 
 protected:
-	const char state = '00001111';
+	const string state = "0011";
 };
 
 #endif //DESPAT_MYKITCHEN_INGREDIENT_H
