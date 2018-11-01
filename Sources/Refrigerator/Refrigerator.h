@@ -40,10 +40,10 @@ public:
     /**
      * @brief Get the amopunt of a T.
      *
-     * @param (T&)elem: T you want to search for.
+     * @param (T)elem: T you want to search for.
      * @return (amount_type): The amount of T here.
      */
-    amount_type search(T& elem) {
+    amount_type search(T elem) {
         return this->_lazy_update(elem);
     }
 
@@ -423,8 +423,8 @@ private:
      */
     amount_type _lazy_update(const T& to_merge) {
         if (!this->_need_lazy_update) {
-            for (auto i : this->_array) {
-                if (i.first = to_merge.first) {
+            for (auto i : *(this->_array)) {
+                if (i.first == to_merge) {
                     return i.second;
                 }
             }
