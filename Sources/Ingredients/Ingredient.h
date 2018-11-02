@@ -80,24 +80,28 @@ protected:
 };
 
 class Vegetable :public Ingredient {
+public:
 	Vegetable();
 	Vegetable(string n);
 	~Vegetable();
 };
 
 class Fruit :public Ingredient {
+public:
 	Fruit();
 	Fruit(string n);
 	~Fruit();
 };
 
 class Meat :public Ingredient {
+public:
 	Meat();
 	Meat(string n);
 	~Meat();
 };
 
 class Flavour :public Ingredient {
+public:
 	Flavour();
 	Flavour(string n);
 	~Flavour();

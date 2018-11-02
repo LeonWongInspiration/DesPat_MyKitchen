@@ -70,7 +70,7 @@ bool Ingredient::change_state(string str)
     {
         for(int i=0;i<4;i++)
         {
-            if(str[i]!='0'&&str[i]=='1')
+            if(str[i]!='0'&&str[i]!='1')
             {
                 cout<<"输入的字符串不满足要求，只能由0和1组成。"<<endl;
                 return false;
