@@ -91,6 +91,27 @@ public:
      */
     const std::string& operator[](const std::string& property) const;
 
+    /**
+     * @brief Decide whether an Ingredient is identical to another one.
+     *
+     * @param LHS
+     * @param RHS
+     * @return True if identical, false otherwise.
+     */
+    friend bool operator==(const Ingredient& LHS, const Ingredient& RHS){
+        if (LHS.properties == RHS.properties)
+            return true;
+        if (LHS.properties->size() != RHS.properties->size())
+            return false;
+        auto iter = LHS.properties->begin();
+        while (iter != LHS.properties->end()) {
+            if (iter->second != (*RHS.properties)[iter->first])
+                return false;
+            ++iter;
+        }
+        return true;
+    }
+
 private:
     /**
      * The properties of the Ingredient.

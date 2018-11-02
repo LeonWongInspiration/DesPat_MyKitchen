@@ -21,10 +21,17 @@ int main(int argc, const char * argv[]) {
 
     cout << i3.get_custom_property("Color") << endl;
 
+    cout << (i2 == i3) << endl;
+
     i2["Color"] = "Green";
     cout << i2.get_custom_property("Color") << endl;
 
     cout << i3.get_custom_property("Color") << endl;
+    cout << (i2 == i3) << endl;
+
+    Ingredient i4("Apple");
+    i4.add_custom_property("Weight", "50g");
+    cout << (i1 == i4) << endl;
 
     return 0;
 }
