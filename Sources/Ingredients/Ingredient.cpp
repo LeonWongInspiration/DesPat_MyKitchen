@@ -5,109 +5,73 @@
 #include<iostream>
 #include<stdio.h>
 
-using namespace std;
-
-inline string Ingredient::who_am_i() const {
-    string ret = "Ingredient@";
-    stringstream ss;
+inline std::string Ingredient::who_am_i() const {
+    std::string ret = "Ingredient@";
+    std::stringstream ss;
     ss << this;
     ret += ss.str();
     return ret;
 }
 
-Ingredient::Ingredient() {};
+Ingredient::Ingredient(std::string& name) {
+    this->properties = new std::map<std::string, std::string>();
+    (*this->properties)["name"] = name;
+    this->reference_count = new int(1);
+};
 
-Ingredient::Ingredient(string n){
-    properties["name"]=n;
+Ingredient::Ingredient(const Ingredient& RHS){
+    this->properties = RHS.properties;
+    this->reference_count = RHS.reference_count;
+    (*this->reference_count) += 1;
 }
 
-Ingredient::~Ingredient() {};
+Ingredient::~Ingredient() {
+    *this->reference_count -= 1;
+    if (*this->reference_count == 0) {
+        delete this->properties;
+        delete this->reference_count;
+    }
+};
 
-string Ingredient::get_name() {
-    if(properties.count("name")<=0)
-    {
-        cout<<"没有该属性，请进行添加。"<<endl;
-        return "";
+std::string Ingredient::get_name() {
+    if (!(this->properties->count("name"))) {
+        return std::string("");
     }
     else
-        return properties["name"];
+        return this->properties->at("name");
 }
 
-string Ingredient::get_custom_property(string property_name)
-{
-    if(properties.count(property_name)<=0)
-    {
-        cout<<"没有该属性，请进行添加。"<<endl;
-        return "";
+const std::string Ingredient::get_custom_property(const std::string& property_name) const {
+    if (!(this->properties->count(property_name))) {
+        return std::string("");
     }
     else
-        return properties[property_name];
+        return this->properties->at(property_name);
 }
 
-bool Ingredient::add_custom_property(string property_name,string property_value)
-{
-    if(properties.count(property_name)>0)
-    {
-        cout<<"该属性已经存在，请重新添加新属性。"<<endl;
+bool Ingredient::add_custom_property(const std::string& property_name, const std::string& property_value) {
+    if (!(this->properties->count(property_name))){
         return false;
     }
-    else
-    {
-        properties[property_name]=property_value;
-        cout<<"该属性已经添加成功。"<<endl;
+    else {
+        (*this->properties)[property_name] = property_value;
     }
     return true;
 }
 
-bool Ingredient::change_state(string str)
-{
-    if(str.length()!=4)
-    {
-        cout<<"输入的字符串不满足要求，只能四位数。"<<endl;
+bool Ingredient::modify_property(const std::string& property_name, const std::string& property_value) {
+    if (!(this->properties->count(property_name))) {
         return false;
     }
-    else
-    {
-        for(int i=0;i<4;i++)
-        {
-            if(str[i]!='0'&&str[i]!='1')
-            {
-                cout<<"输入的字符串不满足要求，只能由0和1组成。"<<endl;
-                return false;
-            }
-        }
-        state=str;
+    else {
+        (*this->properties)[property_name] = property_value;
     }
-    return true;
 }
 
-bool Ingredient::can_be_cooked() { return state[0]-48; }
-bool Ingredient::can_be_cut() { return state[1]-48; }
-bool Ingredient::can_be_fried() { return state[2]-48; }
-bool Ingredient::can_be_steamed() { return state[3]-48; }
-
-Vegetable::Vegetable() {};
-Vegetable::Vegetable(string n) {
-	properties["name"]=n;
+std::string& Ingredient::operator[](const std::string &property) {
+    return (*this->properties)[property];
 }
-Vegetable::~Vegetable() {};
 
-Meat::Meat() {};
-Meat::Meat(string n) {
-	properties["name"]=n;
+const std::string& Ingredient::operator[](const std::string &property) const {
+    return (*this->properties)[property];
 }
-Meat::~Meat() {};
-
-Fruit::Fruit() {};
-Fruit::Fruit(string n) {
-	properties["name"]=n;
-}
-Fruit::~Fruit() {};
-
-Flavour::Flavour() {};
-Flavour::Flavour(string n) {
-	properties["name"]=n;
-}
-Flavour::~Flavour() {};
-
-

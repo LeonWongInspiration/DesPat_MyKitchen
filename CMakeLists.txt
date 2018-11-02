@@ -3,4 +3,4 @@ project(DesPat_MyKitchen)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(DesPat_MyKitchen Testing/ObjectTesting.cpp Sources/Refrigerator/Refrigerator.h Sources/Refrigerator/Refrigerator.cpp Testing/RefrigeratorTesting.cpp)
+add_executable(DesPat_MyKitchen Testing/ObjectTesting.cpp Sources/Refrigerator/Refrigerator.h Sources/Refrigerator/Refrigerator.cpp Testing/RefrigeratorTesting.cpp Sources/Ingredients/Ingredient.cpp Sources/Ingredients/Ingredient.h)

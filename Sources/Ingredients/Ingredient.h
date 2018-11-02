@@ -5,23 +5,37 @@
 #ifndef DESPAT_MYKITCHEN_INGREDIENT_H
 #define DESPAT_MYKITCHEN_INGREDIENT_H
 
-#include "Object.h"
+#include "../Object.h"
 #include <stdio.h>
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <map>
-using namespace std;
 
+/**
+ * Ingredient base class definition.
+ */
 class Ingredient: public Object {
 public:
 	/**
-	* @brief construct a kind of ingredient.
+	* @brief construct a kind of ingredient with given name.
 	*
+	* @param (std::string&)name: Name of the Ingredient.
 	*/
-	Ingredient();
-	Ingredient(string n);
+	Ingredient(std::string& name);
+
+	/**
+	 * @brief Copy construct with Copy-on-Write.
+	 *
+	 * @param RHS Copy construct param.
+	 */
+	Ingredient(const Ingredient& RHS);
+
+	/**
+	 * @brief Destruct this Ingredient, with Copy-on-Write.
+	 */
 	~Ingredient();
+
     /**
      * @brief Return the basic info of this object: name and address.
      *
@@ -33,82 +47,62 @@ public:
      * @brief Return the name of this ingredient.
      *
      */
-	string get_name();
+	std::string get_name();
     
     /**
      * @brief Return the property of this ingredient.
      *
      * @param (string) property_name:property_name is the key.
-     * @return (string) property_name:Return property of this ingredient.
+     * @return (string) Return acquired property of this ingredient.
      */
-    string get_custom_property(string property_name);
+    const std::string get_custom_property(const std::string& property_name) const;
     
     /**
      * @brief Add a new record to properties.
      *
      * @param (string) property_name:property_name is the key.
-     * @param (string) property_value:property_value is the value.
-     * @return (bool):True if add the record sucessfully.
+     * @param (const string&) property_value:property_value is the value.
+     * @return (bool):True if add the record successfully.
      */
-    bool add_custom_property(string property_name,string property_value);
+    bool add_custom_property(const std::string& property_name, const std::string& property_value);
     
     /**
      * @brief Change the state.
      *
-     * @param (string) str:the new state.
-     * @return (bool):True if change the state sucessfully.
+     * @param (string) property_name:the new state.
+     * @param (string) property_value: The new value of the property.
+     * @return (bool):True if change the state successfully.
      */
-    bool change_state(string str);
-    
-	/**
-	* @brief Return the state of this ingredient.
-	*
-	*/
-	bool can_be_cut();
-	bool can_be_fried();
-	bool can_be_cooked();
-	bool can_be_steamed();
-    
+    bool modify_property(const std::string& property_name, const std::string& property_value);
+
+    /**
+     * @brief Acquire a property and (maybe) modify it.
+     *
+     * @param property Name of the acquired property.
+     * @return (string&) value of that property.
+     */
+    std::string& operator[](const std::string& property);
+
+    /**
+     * @brief Acquire a property and (maybe) modify it.
+     *
+     * @param property Name of the acquired property.
+     * @return (string&) value of that property.
+     */
+    const std::string& operator[](const std::string& property) const;
+
+private:
     /**
      * The properties of the Ingredient.
      */
-    map<string,string>properties;
+    std::map<std::string, std::string>* properties;
 
-protected:
-    // TODO: set some properties for ingredients
-	string state = "1111";
+    /**
+     * Reference counting.
+     */
+    int *reference_count;
 };
 
-class Vegetable :public Ingredient {
-public:
-	Vegetable();
-	Vegetable(string n);
-	~Vegetable();
-};
-
-class Fruit :public Ingredient {
-public:
-	Fruit();
-	Fruit(string n);
-	~Fruit();
-};
-
-class Meat :public Ingredient {
-public:
-	Meat();
-	Meat(string n);
-	~Meat();
-};
-
-class Flavour :public Ingredient {
-public:
-	Flavour();
-	Flavour(string n);
-	~Flavour();
-
-protected:
-	const string state = "0011";
-};
 
 #endif //DESPAT_MYKITCHEN_INGREDIENT_H
 
