@@ -73,7 +73,7 @@ public:
         }
         else {
             for (auto iter = this->_array->end() - 1; iter != this->_array->begin(); --iter) {
-                if (iter->firse == elem) {
+                if (iter->first == elem) {
                     iter->second -= amount;
                     return true;
                 }
@@ -157,7 +157,7 @@ public:
     /**
      * @brief Out_of_boundary_exception will be thrown when there is an illegal visit to the array.
      */
-class out_of_boundary_exception: public std::range_error, Object {
+class out_of_boundary_exception: public std::runtime_error, Object {
 
     /**
      * size_t will be considered when referring to indices and sizes of arrays.
@@ -181,16 +181,26 @@ public:
      *
      * @return (const char*) Information about this exception.
      */
-    virtual const char* what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_USE_NOEXCEPT {
-        char index_str[16];
-        sprintf(index_str, "%d", this->index);
-        std::string ret;
-        ret = "Refrigerator out of boundary! ";
-        ret += this->refrigerator->who_am_i();
-        ret += ": @index: ";
-        ret.append(index_str);
-        return ret.c_str();
-    }
+//    virtual const char* what() const
+//#ifdef __GNUC__
+//    _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_USE_NOEXCEPT
+//#endif
+//#ifdef __clang__
+//    __NOEXCEPT
+//#endif
+//#ifdef _MSC_VER
+//    __NOEXCEPT
+//#endif
+//    {
+//        char index_str[16];
+//        sprintf(index_str, "%d", this->index);
+//        std::string ret;
+//        ret = "Refrigerator out of boundary! ";
+//        ret += this->refrigerator->who_am_i();
+//        ret += ": @index: ";
+//        ret.append(index_str);
+//        return ret.c_str();
+//    }
 
     /**
      * @brief Constructor of this exception, requiring the address and more information about this exception.
