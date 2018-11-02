@@ -1,30 +1,30 @@
 #include <iostream>
-#include "Ingredient.h"
+#include "../Sources/Ingredients/Ingredient.h"
+
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    
-    //map
-    Ingredient* food=new Vegetable("caraway");
-    
-    cout<<food->get_name()<<endl;
-    
-    if(food->can_be_cooked()==1)
-        cout<<"can be cooked"<<endl;
-    if(food->can_be_steamed()==1)
-        cout<<"can be steamed"<<endl;
-    if(food->can_be_fried()==1)
-        cout<<"can be fried"<<endl;
-    if(food->can_be_cut()==1)
-        cout<<"can be cut"<<endl;
-    
-    food->change_state("1010");
-    food->change_state("11111");
-    food->change_state("absd");
-    
-    food->add_custom_property("weight", "1斤");
-    cout<<food->get_custom_property("weight")<<endl;
-    food->add_custom_property("weight", "1斤");
-    
+
+    Ingredient i1("Apple");
+    Ingredient i2("Banana");
+
+    cout << i1.get_name() << endl;
+    cout << i2.get_name() << endl;
+
+    i1.add_custom_property("Weight", "50g");
+    i2.add_custom_property("Color", "Yellow");
+
+    cout << i1["Weight"] << endl;
+    cout << i1.get_custom_property("Weight") << endl;
+
+    Ingredient i3(i2);
+
+    cout << i3.get_custom_property("Color") << endl;
+
+    i2["Color"] = "Green";
+    cout << i2.get_custom_property("Color") << endl;
+
+    cout << i3.get_custom_property("Color") << endl;
+
     return 0;
 }

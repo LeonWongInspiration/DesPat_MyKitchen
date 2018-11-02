@@ -13,7 +13,7 @@ inline std::string Ingredient::who_am_i() const {
     return ret;
 }
 
-Ingredient::Ingredient(std::string& name) {
+Ingredient::Ingredient(const std::string name) {
     this->properties = new std::map<std::string, std::string>();
     (*this->properties)["name"] = name;
     this->reference_count = new int(1);
@@ -51,7 +51,7 @@ const std::string Ingredient::get_custom_property(const std::string& property_na
 
 bool Ingredient::add_custom_property(const std::string& property_name, const std::string& property_value) {
     this->deRefCounting();
-    if (!(this->properties->count(property_name))){
+    if ((this->properties->count(property_name))){
         return false;
     }
     else {

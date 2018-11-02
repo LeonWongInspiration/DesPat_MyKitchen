@@ -20,9 +20,9 @@ public:
 	/**
 	* @brief construct a kind of ingredient with given name.
 	*
-	* @param (std::string&)name: Name of the Ingredient.
+	* @param (const std::string)name: Name of the Ingredient.
 	*/
-	Ingredient(std::string& name);
+	Ingredient(const std::string name);
 
 	/**
 	 * @brief Copy construct with Copy-on-Write.
