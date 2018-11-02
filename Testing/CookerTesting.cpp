@@ -18,18 +18,15 @@ int main(int argc, const char * argv[]) {
         {
             pCooker1->on();
             pCooker1->off();
-            delete pCooker1;
         }
         else
         {
             cout<<"选择工具错误"<<endl;
-            delete pCooker1;
         }
     }
     else
     {
         cout<<"食材不足"<<endl;
-        delete pCooker1;
     }
     
     return 0;
