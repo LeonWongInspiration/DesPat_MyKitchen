@@ -4,6 +4,7 @@
 
 class Cooker;
 
+
 /**
  * @brief CookerFactory produces Cooker.
  *
