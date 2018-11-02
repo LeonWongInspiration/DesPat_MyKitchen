@@ -87,7 +87,7 @@ public:
      * @brief Start to execute the commands.
      *
      */
-    virtual void Start(){
+    void Start(){
         int pos = 1;
         while (m_commands.size() != 0) {
             cout << "菜谱" << m_id << "：正在进行第" << pos << "步" << endl;
