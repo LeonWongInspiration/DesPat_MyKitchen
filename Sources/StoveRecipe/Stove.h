@@ -83,7 +83,7 @@ public:
      *
      * @param (Observer *) pObserver: The observer pointer to be attached to this subject.
      */
-    void Attach(Observer *pObserver){
+    virtual void Attach(Observer *pObserver) override {
         m_ObserverList.push_back(pObserver);
     }
 
@@ -92,7 +92,7 @@ public:
      *
      * @param (Observer * ) pObserver: The observer pointer to be detached to this subject.
      */
-    void Detach(Observer *pObserver){
+    virtual void Detach(Observer *pObserver) override {
         m_ObserverList.remove(pObserver);
     }
     
@@ -100,7 +100,7 @@ public:
      * @brief Notify messages to observers attached to this subject.
      *
      */
-    void Notify(){
+    virtual void Notify() override {
         for (auto i : m_ObserverList){
             i->Update();
         }

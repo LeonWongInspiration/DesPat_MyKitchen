@@ -7,9 +7,9 @@
 #define Recipe_h
 
 #include "../Object.h"
+#include "Procedure.h"
 #include <iostream>
-#include <list>
-#include <thread>
+#include <vector>
 using namespace std;
 
 /**
@@ -70,34 +70,30 @@ public:
      * @brief Update its state when this observer has received messages from subject.
      *
      */
-    void Update(){
-        cout << endl;
+    virtual void Update() override {
         cout << "菜谱" << m_id << "在进行中。" << endl;
     }
     
     /**
      * @brief Set commands of this recipe.
      *
-     * @param (list<int>) tList: The list of commands to be set in this recipe.
-     * @warning This function is temporory. Command pattern is not completed.
+     * @param (Command*) pCommand: Command to be set in this recipe.
      */
-    void SetTime(list<int>tList){
-        for(auto i: tList){
-            m_Time.push_back(i);
-        }
+    void SetCommand(Command* pCommand){
+        m_commands.push_back(pCommand);
     }
     
     /**
      * @brief Start to execute the commands.
      *
-     * @warning This function is temporory. Command pattern is not completed.
      */
-    void Start(){
+    virtual void Start(){
         int pos = 1;
-        for(auto i: m_Time){
-            cout << endl;
+        while (m_commands.size() != 0) {
             cout << "菜谱" << m_id << "：正在进行第" << pos << "步" << endl;
-            this_thread::sleep_for(chrono::seconds(i));
+            Command* pCommand = m_commands[0];
+            pCommand->Execute();
+            m_commands.erase(m_commands.begin());
             pos++;
         }
     }
@@ -106,11 +102,11 @@ private:
     /**
      * The list of commands.
      */
-    list<int> m_Time;
+    vector<Command *>m_commands;
     /**
      * The ID of recipe.
      */
-    int m_id;
+    const int m_id;
     
 };
 
