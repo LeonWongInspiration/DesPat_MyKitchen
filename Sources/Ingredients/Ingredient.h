@@ -101,6 +101,11 @@ private:
      * Reference counting.
      */
     int *reference_count;
+
+    /**
+     * @brief Cancel the sharing of the map and create a new one for this Ingredient.
+     */
+    void deRefCounting();
 };
 
 

@@ -50,6 +50,7 @@ const std::string Ingredient::get_custom_property(const std::string& property_na
 }
 
 bool Ingredient::add_custom_property(const std::string& property_name, const std::string& property_value) {
+    this->deRefCounting();
     if (!(this->properties->count(property_name))){
         return false;
     }
@@ -60,18 +61,31 @@ bool Ingredient::add_custom_property(const std::string& property_name, const std
 }
 
 bool Ingredient::modify_property(const std::string& property_name, const std::string& property_value) {
+    this->deRefCounting();
     if (!(this->properties->count(property_name))) {
         return false;
     }
     else {
         (*this->properties)[property_name] = property_value;
     }
+    return true;
 }
 
 std::string& Ingredient::operator[](const std::string &property) {
+    this->deRefCounting();
     return (*this->properties)[property];
 }
 
 const std::string& Ingredient::operator[](const std::string &property) const {
     return (*this->properties)[property];
+}
+
+void Ingredient::deRefCounting() {
+    if (*this->reference_count == 1)
+        return;
+    else {
+        *this->reference_count -= 1;
+        this->properties = new std::map<std::string, std::string>(*this->properties);
+        this->reference_count = new int(1);
+    }
 }
